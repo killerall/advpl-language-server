@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +47,66 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LanguageServicesProtocol\LanguageServer\ClientCapabilities.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\CodeAction.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Completion.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Configuration.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Definition.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Diagnostics.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\DocumentHighlight.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\EditorCommands.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\ExpandAliasRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\FindModuleRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\GetPSSARulesRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Hover.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Initialize.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\InstallModuleRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\References.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\ServerCapabilities.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\SetPSSARulesRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\ShowOnlineHelpRequest.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\Shutdown.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\SignatureHelp.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\TextDocument.cs" />
+    <Compile Include="LanguageServicesProtocol\LanguageServer\WorkspaceSymbols.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\ChannelBase.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\NamedPipeClientChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\NamedPipeServerChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\StdioClientChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\StdioServerChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\TcpSocketClientChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Channel\TcpSocketServerChannel.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Constants.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\EventContext.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\EventType.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\IMessageSender.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\IMessageSerializer.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Message.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\MessageDispatcher.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\MessageParseException.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\MessageProtocolType.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\MessageReader.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\MessageWriter.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\ProtocolEndpoint.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\RequestContext.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\RequestType.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Serializers\JsonRpcMessageSerializer.cs" />
+    <Compile Include="LanguageServicesProtocol\MessageProtocol\Serializers\V8MessageSerializer.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\AsyncContext.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\AsyncContextThread.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\AsyncDebouncer.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\AsyncLock.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\AsyncQueue.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\Extensions.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\Logger.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\ThreadSynchronizationContext.cs" />
+    <Compile Include="LanguageServicesProtocol\Utility\Validate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
