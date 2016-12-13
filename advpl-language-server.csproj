@@ -47,6 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvplLSPServer\LanguageServer.cs" />
+    <Compile Include="AdvplLSPServer\LanguageServerBase.cs" />
+    <Compile Include="AdvplLSPServer\OutputDebouncer.cs" />
+    <Compile Include="EditorServices\Workspace\BufferPosition.cs" />
+    <Compile Include="EditorServices\Workspace\BufferRange.cs" />
+    <Compile Include="EditorServices\Workspace\FileChange.cs" />
+    <Compile Include="EditorServices\Workspace\FilePosition.cs" />
+    <Compile Include="EditorServices\Workspace\ScriptFile.cs" />
+    <Compile Include="EditorServices\Workspace\ScriptFileMarker.cs" />
+    <Compile Include="EditorServices\Workspace\ScriptRegion.cs" />
+    <Compile Include="EditorServices\Workspace\Workspace.cs" />
     <Compile Include="LanguageServicesProtocol\LanguageServer\ClientCapabilities.cs" />
     <Compile Include="LanguageServicesProtocol\LanguageServer\CodeAction.cs" />
     <Compile Include="LanguageServicesProtocol\LanguageServer\Completion.cs" />
@@ -92,6 +103,9 @@
     <Compile Include="LanguageServicesProtocol\MessageProtocol\RequestType.cs" />
     <Compile Include="LanguageServicesProtocol\MessageProtocol\Serializers\JsonRpcMessageSerializer.cs" />
     <Compile Include="LanguageServicesProtocol\MessageProtocol\Serializers\V8MessageSerializer.cs" />
+    <Compile Include="LanguageServicesProtocol\Session\EditorSession.cs" />
+    <Compile Include="LanguageServicesProtocol\Session\OutputType.cs" />
+    <Compile Include="LanguageServicesProtocol\Session\OutputWrittenEventArgs.cs" />
     <Compile Include="LanguageServicesProtocol\Utility\AsyncContext.cs" />
     <Compile Include="LanguageServicesProtocol\Utility\AsyncContextThread.cs" />
     <Compile Include="LanguageServicesProtocol\Utility\AsyncDebouncer.cs" />

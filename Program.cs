@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdvplLSPServer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,13 @@ namespace advpl_language_server
     {
         static void Main(string[] args)
         {
+            init();
+            
+        }
+        static void init()
+        {
+            LanguageServer server = new LanguageServer();
+            server.Start().Wait(); 
         }
     }
 }
