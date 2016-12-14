@@ -14,6 +14,10 @@ namespace advpl_language_server.LanguageServicesProtocol.Session
         /// Gets the Workspace instance for this session.
         /// </summary>
         public Workspace Workspace { get; private set; }
+        /// <summary>
+        /// Gets the ConsoleService instance for this session.
+        /// </summary>
+        
 
         /// <summary>
         /// Disposes of any Runspaces that were created for the
@@ -21,6 +25,10 @@ namespace advpl_language_server.LanguageServicesProtocol.Session
         /// </summary>
         public void Dispose()
         {
+        }
+        public void StartSession()
+        {
+            this.Workspace = new Workspace();
         }
     }
 }

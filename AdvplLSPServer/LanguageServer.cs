@@ -31,16 +31,17 @@ namespace AdvplLSPServer
         private bool profilesLoaded;
         private EditorSession editorSession;
         private OutputDebouncer outputDebouncer;
-      /*  private LanguageServerEditorOperations editorOperations;
-        private LanguageServerSettings currentSettings = new LanguageServerSettings();
-        private Dictionary<string, Dictionary<string, MarkerCorrection>> codeActionsPerFile =
-            new Dictionary<string, Dictionary<string, MarkerCorrection>>();
-            */
+        /*  private LanguageServerEditorOperations editorOperations;
+          private LanguageServerSettings currentSettings = new LanguageServerSettings();
+          private Dictionary<string, Dictionary<string, MarkerCorrection>> codeActionsPerFile =
+              new Dictionary<string, Dictionary<string, MarkerCorrection>>();
+              */
         /// <param name="hostDetails">
         /// Provides details about the host application.
         /// </param>
+        /// //: this(new TcpSocketServerChannel(8523))
         public LanguageServer()
-            : this(new TcpSocketServerChannel(1001))
+            : this(new StdioServerChannel()) //(new StdioServerChannel())            
         {
         }
 
@@ -51,8 +52,8 @@ namespace AdvplLSPServer
             : base(serverChannel)
         {
             this.editorSession = new EditorSession();
-          /*  this.editorSession.StartSession(hostDetails, profilePaths);
-            this.editorSession.ConsoleService.OutputWritten += this.powerShellContext_OutputWritten;
+            this.editorSession.StartSession();
+          /*  this.editorSession.ConsoleService.OutputWritten += this.powerShellContext_OutputWritten;
 
             // Attach to ExtensionService events
             this.editorSession.ExtensionService.CommandAdded += ExtensionService_ExtensionAdded;
@@ -72,9 +73,9 @@ namespace AdvplLSPServer
                 new ProtocolPromptHandlerContext(
                     this,
                     this.editorSession.ConsoleService));
-
+                    */
             // Set up the output debouncer to throttle output event writes
-            this.outputDebouncer = new OutputDebouncer(this);*/
+            this.outputDebouncer = new OutputDebouncer(this);
         }
 
         protected override void Initialize()
@@ -155,23 +156,23 @@ namespace AdvplLSPServer
                 {
                     Capabilities = new ServerCapabilities
                     {
-                        TextDocumentSync = TextDocumentSyncKind.Incremental,
-                        DefinitionProvider = true,
-                        ReferencesProvider = true,
-                        DocumentHighlightProvider = true,
-                        DocumentSymbolProvider = true,
-                        WorkspaceSymbolProvider = true,
-                        HoverProvider = true,
+                        TextDocumentSync = TextDocumentSyncKind.Full,
+                        DefinitionProvider = false,
+                        ReferencesProvider = false,
+                        DocumentHighlightProvider = false,
+                        DocumentSymbolProvider = false,
+                        WorkspaceSymbolProvider = false,
+                        HoverProvider = false,
                         CodeActionProvider = true,
                         CompletionProvider = new CompletionOptions
                         {
                             ResolveProvider = true,
-                            TriggerCharacters = new string[] { ".", "-", ":", "\\" }
-                        },
+                            TriggerCharacters = new string[] {" ", ".", "-", ":", "\\" }
+                        }/*,
                         SignatureHelpProvider = new SignatureHelpOptions
                         {
                             TriggerCharacters = new string[] { " " } // TODO: Other characters here?
-                        }
+                        }*/
                     }
                 });
         }
@@ -561,15 +562,15 @@ function __Expand-Alias {
             ScriptFile scriptFile =
                 editorSession.Workspace.GetFile(
                     textDocumentPosition.Uri);
-            /*
-            CompletionResults completionResults =
+            
+          /*  CompletionResults completionResults =
                 await editorSession.LanguageService.GetCompletionsInFile(
                     scriptFile,
                     cursorLine,
-                    cursorColumn);
+                    cursorColumn);*/
 
             CompletionItem[] completionItems = null;
-
+            /*
             if (completionResults != null)
             {
                 int sortIndex = 1;
@@ -587,8 +588,8 @@ function __Expand-Alias {
             {
                 completionItems = new CompletionItem[0];
             }
-
-            await requestContext.SendResult(completionItems);*/
+            */
+            await requestContext.SendResult(completionItems);
         }
 
         protected async Task HandleCompletionResolveRequest(

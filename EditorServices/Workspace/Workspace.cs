@@ -40,8 +40,9 @@ namespace Microsoft.LanguageServer.EditorServices
         /// Creates a new instance of the Workspace class.
         /// </summary>
         /// <param name="powerShellVersion">The version of PowerShell for which scripts will be parsed.</param>
-        public Workspace(Version powerShellVersion)
+        public Workspace()
         {
+            Version powerShellVersion = new Version("1.0");
             this.powerShellVersion = powerShellVersion;
         }
 
