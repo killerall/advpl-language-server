@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace advpl_parser.documentation
+namespace DocumentationService.documentation
 {
     class DocumentationUtils
     {
