@@ -156,7 +156,7 @@ namespace AdvplLSPServer
                 {
                     Capabilities = new ServerCapabilities
                     {
-                        TextDocumentSync = TextDocumentSyncKind.Full,
+                        TextDocumentSync = TextDocumentSyncKind.Incremental,
                         DefinitionProvider = false,
                         ReferencesProvider = false,
                         DocumentHighlightProvider = false,
@@ -391,12 +391,19 @@ function __Expand-Alias {
             {
                 ScriptFile changedFile = editorSession.Workspace.GetFile(textChangeParams.Uri);
 
-                changedFile.ApplyChange(
+                try
+                {
+                    changedFile.ApplyChange(
                     GetFileChangeDetails(
                         textChange.Range.Value,
                         textChange.Text));
 
-                changedFiles.Add(changedFile);
+                    changedFiles.Add(changedFile);
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine(e.ToString());
+                }
             }
 
             // TODO: Get all recently edited files in the workspace

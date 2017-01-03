@@ -12,7 +12,7 @@ namespace advpl_language_server
     {
         static void Main(string[] args)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             init();
             
         }
