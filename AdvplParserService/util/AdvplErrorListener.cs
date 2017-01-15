@@ -7,6 +7,7 @@ using Antlr4.Runtime;
 using System.Collections;
 
 using Antlr4.Runtime.Misc;
+using advpl_language_server.EditorServices.Workspace;
 
 namespace advpl_parser.util
 {
@@ -23,8 +24,7 @@ namespace advpl_parser.util
         {
             
             AdvplError info = new AdvplError();
-            info.Line = line;
-            
+            info.Line = line;            
             info.Column = charPositionInLine;
             info.TokenSize = offendingSymbol.Text.Length;
             
@@ -35,6 +35,10 @@ namespace advpl_parser.util
             Errors.Add(info);
 
 
+        }
+        public AdvplError[] getErros()
+        {
+            return (AdvplError[]) Errors.ToArray(typeof(AdvplError));
         }
 
     }

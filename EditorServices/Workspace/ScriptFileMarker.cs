@@ -3,6 +3,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 //
 
+using advpl_language_server.EditorServices.Workspace;
+using advpl_parser;
 using Microsoft.LanguageServer.EditorServices.Utility;
 using System;
 using System.Collections.Generic;
@@ -80,8 +82,20 @@ namespace Microsoft.LanguageServer.EditorServices
         #endregion
 
         #region Public Methods
+        internal static ScriptFileMarker FromAdvplError(AdvplError parseError)
+        {
+            Validate.IsNotNull("parseError", parseError);            
+            return new ScriptFileMarker
+            {
+                Message = parseError.Message,
+                Level = ScriptFileMarkerLevel.Error,
+                ScriptRegion = ScriptRegion.Create(parseError)
+            };
+        }
 
-     /*   internal static ScriptFileMarker FromParseError(
+
+
+        internal static ScriptFileMarker FromParseError(
             ParseError parseError)
         {
             Validate.IsNotNull("parseError", parseError);
@@ -93,7 +107,7 @@ namespace Microsoft.LanguageServer.EditorServices
                 ScriptRegion = ScriptRegion.Create(parseError.Extent)
             };
         }
-        private static string GetIfExistsString(PSObject psobj, string memberName)
+     /*   private static string GetIfExistsString(PSObject psobj, string memberName)
         {
             if (psobj.Members.Match(memberName).Count > 0)
             {

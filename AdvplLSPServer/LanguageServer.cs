@@ -32,10 +32,10 @@ namespace AdvplLSPServer
         private EditorSession editorSession;
         private OutputDebouncer outputDebouncer;
         /*  private LanguageServerEditorOperations editorOperations;
-          private LanguageServerSettings currentSettings = new LanguageServerSettings();
+          private LanguageServerSettings currentSettings = new LanguageServerSettings();*/
           private Dictionary<string, Dictionary<string, MarkerCorrection>> codeActionsPerFile =
               new Dictionary<string, Dictionary<string, MarkerCorrection>>();
-              */
+              
         /// <param name="hostDetails">
         /// Provides details about the host application.
         /// </param>
@@ -353,11 +353,11 @@ function __Expand-Alias {
                     openParams.Text);
 
             // TODO: Get all recently edited files in the workspace
-          /*  this.RunScriptDiagnostics(
+            this.RunScriptDiagnostics(
                 new ScriptFile[] { openedFile },
                 editorSession,
                 eventContext);
-                */
+          
             Logger.Write(LogLevel.Verbose, "Finished opening document.");
 
             return Task.FromResult(true);
@@ -407,11 +407,11 @@ function __Expand-Alias {
             }
 
             // TODO: Get all recently edited files in the workspace
-            /*this.RunScriptDiagnostics(
+            this.RunScriptDiagnostics(
                 changedFiles.ToArray(),
                 editorSession,
                 eventContext);
-                */
+            
             return Task.FromResult(true);
         }
 
@@ -1028,7 +1028,7 @@ function __Expand-Alias {
                 EndOffset = changeRange.End.Character + 1
             };
         }
-        /*
+        
         private Task RunScriptDiagnostics(
             ScriptFile[] filesToAnalyze,
             EditorSession editorSession,
@@ -1042,12 +1042,12 @@ function __Expand-Alias {
             EditorSession editorSession,
             Func<EventType<PublishDiagnosticsNotification>, PublishDiagnosticsNotification, Task> eventSender)
         {
-            if (!this.currentSettings.ScriptAnalysis.Enable.Value)
+            /*if (!this.currentSettings.ScriptAnalysis.Enable.Value)
             {
                 // If the user has disabled script analysis, skip it entirely
                 return Task.FromResult(true);
             }
-
+            */
             // If there's an existing task, attempt to cancel it
             try
             {
@@ -1096,7 +1096,7 @@ function __Expand-Alias {
 
             return Task.FromResult(true);
         }
-        */
+        
 
         private static async Task DelayThenInvokeDiagnostics(
             int delayMilliseconds,
@@ -1161,9 +1161,10 @@ function __Expand-Alias {
                 {
                     // Semantic markers aren't available if the AnalysisService
                     // isn't available
-                    semanticMarkers = new ScriptFileMarker[0];
+                    //semanticMarkers = new ScriptFileMarker[0];
                 }
-                var allMarkers = scriptFile.SyntaxMarkers.Concat(semanticMarkers);
+                var allMarkers = scriptFile.SyntaxMarkers;//.Concat(semanticMarkers);
+                semanticMarkers = allMarkers;
                 await PublishScriptDiagnostics(
                     scriptFile,
                     semanticMarkers,
@@ -1200,13 +1201,13 @@ function __Expand-Alias {
             foreach (var marker in scriptFile.SyntaxMarkers.Concat(semanticMarkers))
             {
                 // Does the marker contain a correction?
-           /*     Diagnostic markerDiagnostic = GetDiagnosticFromMarker(marker);
+                Diagnostic markerDiagnostic = GetDiagnosticFromMarker(marker);
                 if (marker.Correction != null)
                 {
                     fileCorrections.Add(markerDiagnostic.Code, marker.Correction);
                 }
 
-                diagnostics.Add(markerDiagnostic);*/
+                diagnostics.Add(markerDiagnostic);
             }
 
             correctionIndex[scriptFile.ClientFilePath] = fileCorrections;
@@ -1222,7 +1223,7 @@ function __Expand-Alias {
                 });
         }
 
-        /*private static Diagnostic GetDiagnosticFromMarker(ScriptFileMarker scriptFileMarker)
+        private static Diagnostic GetDiagnosticFromMarker(ScriptFileMarker scriptFileMarker)
         {
             return new Diagnostic
             {
@@ -1244,7 +1245,7 @@ function __Expand-Alias {
                     }
                 }
             };
-        }*/
+        }
         /*
         private static CompletionItemKind MapCompletionKind(CompletionType completionType)
         {
@@ -1357,7 +1358,7 @@ function __Expand-Alias {
                 }
             };
         }
-
+        */
         private static DiagnosticSeverity MapDiagnosticSeverity(ScriptFileMarkerLevel markerLevel)
         {
             switch (markerLevel)
@@ -1375,7 +1376,7 @@ function __Expand-Alias {
                     return DiagnosticSeverity.Error;
             }
         }
-
+        /*
         private static ParameterInformation CreateParameterInfo(ParameterInfo parameterInfo)
         {
             return new ParameterInformation

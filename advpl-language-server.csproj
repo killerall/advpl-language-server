@@ -133,6 +133,9 @@
     <Compile Include="EditorServices\Workspace\BufferRange.cs" />
     <Compile Include="EditorServices\Workspace\FileChange.cs" />
     <Compile Include="EditorServices\Workspace\FilePosition.cs" />
+    <Compile Include="EditorServices\Workspace\IScriptExtent.cs" />
+    <Compile Include="EditorServices\Workspace\IScriptPosition.cs" />
+    <Compile Include="EditorServices\Workspace\ParseError.cs" />
     <Compile Include="EditorServices\Workspace\ScriptFile.cs" />
     <Compile Include="EditorServices\Workspace\ScriptFileMarker.cs" />
     <Compile Include="EditorServices\Workspace\ScriptRegion.cs" />

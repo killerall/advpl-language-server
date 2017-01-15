@@ -5,6 +5,9 @@
 
 
 
+using advpl_language_server.EditorServices.Workspace;
+using advpl_parser;
+
 namespace Microsoft.LanguageServer.EditorServices
 {
     /// <summary>
@@ -68,7 +71,7 @@ namespace Microsoft.LanguageServer.EditorServices
         /// <returns>
         /// A new ScriptRegion instance with the same details as the IScriptExtent.
         /// </returns>
-      /*  public static ScriptRegion Create(IScriptExtent scriptExtent)
+        public static ScriptRegion Create(IScriptExtent scriptExtent)
         {
             return new ScriptRegion
             {
@@ -82,7 +85,20 @@ namespace Microsoft.LanguageServer.EditorServices
                 EndOffset = scriptExtent.EndOffset
             };
         }
-        */
+        public static ScriptRegion Create(AdvplError scriptExtent)
+        {
+            return new ScriptRegion
+            {
+                //File = scriptExtent.File,
+                Text = scriptExtent.Message,
+                StartLineNumber = scriptExtent.Line,
+                StartColumnNumber = scriptExtent.Column,
+               // StartOffset = scriptExtent.StartOffset,
+                EndLineNumber = scriptExtent.Line,
+                EndColumnNumber = scriptExtent.Column,
+                EndOffset = scriptExtent.TokenSize
+            };
+        }
         #endregion
     }
 }

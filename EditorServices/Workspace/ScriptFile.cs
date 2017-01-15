@@ -3,6 +3,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 //
 
+using advpl_language_server.AdvplParserService;
+using advpl_parser.listener;
+using advpl_parser.util;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
 using Microsoft.LanguageServer.EditorServices.Utility;
 using System;
 using System.Collections.Generic;
@@ -319,7 +324,7 @@ namespace Microsoft.LanguageServer.EditorServices
             }
 
             // Parse the script again to be up-to-date
-            //this.ParseFileContents();
+            this.ParseFileContents();
         }
 
         /// <summary>
@@ -467,21 +472,45 @@ namespace Microsoft.LanguageServer.EditorServices
                     .ToList();
 
             // Parse the contents to get syntax tree and errors
-           // this.ParseFileContents();
+            this.ParseFileContents();
         }
 
         /// <summary>
         /// Parses the current file contents to get the AST, tokens,
         /// and parse errors.
         /// </summary>
-        /*private void ParseFileContents()
+        private void ParseFileContents()
         {
-            ParseError[] parseErrors = null;
+            //  ParseError[] parseErrors = null;
 
             // First, get the updated file range
             int lineCount = this.FileLines.Count;
             if (lineCount > 0)
             {
+
+
+                NoCaseAntlrStringStream input = new NoCaseAntlrStringStream(this.Contents);
+                AdvplLexer lexer = new AdvplLexer(input);
+                CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+                AdvplParser advplParser = new AdvplParser(commonTokenStream);
+                advplParser.RemoveErrorListeners();
+                AdvplErrorListener errorListener = new AdvplErrorListener();
+                advplParser.AddErrorListener(errorListener);
+                ParserRuleContext tree = advplParser.program();
+
+                //Cria a tabela de symbolo
+                SymbolTableDefPhase tableSymbolList = new SymbolTableDefPhase();
+                ParseTreeWalker walkerGeneral = new ParseTreeWalker();
+                walkerGeneral.Walk(tableSymbolList, tree);
+
+                // Translate parse errors into syntax markers
+                this.SyntaxMarkers =
+                    errorListener.getErros().Select(ScriptFileMarker.FromAdvplError)
+                        .ToArray();
+
+            }
+        
+                /*
                 this.FileRange =
                     new BufferRange(
                         new BufferPosition(1, 1),
@@ -496,35 +525,12 @@ namespace Microsoft.LanguageServer.EditorServices
 
             try
             {
-#if PowerShellv5r2
-                // This overload appeared with Windows 10 Update 1
-                if (this.powerShellVersion.Major >= 5 &&
-                    this.powerShellVersion.Build >= 10586)
-                {
-                    // Include the file path so that module relative
-                    // paths are evaluated correctly
-                    this.ScriptAst =
-                        Parser.ParseInput(
-                            this.Contents,
-                            this.FilePath,
-                            out this.scriptTokens,
-                            out parseErrors);
-                }
-                else
-                {
-                    this.ScriptAst =
-                        Parser.ParseInput(
-                            this.Contents,
-                            out this.scriptTokens,
-                            out parseErrors);
-                }
-#else
                 this.ScriptAst =
                     Parser.ParseInput(
                         this.Contents,
                         out this.scriptTokens,
                         out parseErrors);
-#endif
+
             }
             catch (RuntimeException ex)
             {
@@ -538,18 +544,14 @@ namespace Microsoft.LanguageServer.EditorServices
                 this.scriptTokens = new Token[0];
                 this.ScriptAst = null;
             }
-
-            // Translate parse errors into syntax markers
-            this.SyntaxMarkers =
-                parseErrors
-                    .Select(ScriptFileMarker.FromParseError)
-                    .ToArray();
-            
+            */
+           
+            /*
             //Get all dot sourced referenced files and store  them
             this.ReferencedFiles =
                 AstOperations.FindDotSourcedIncludes(this.ScriptAst);
         }*/
-
+        }
 #endregion
     }
 }

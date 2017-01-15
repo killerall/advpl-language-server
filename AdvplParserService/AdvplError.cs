@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace advpl_parser
 {
-    class AdvplError
+    public class AdvplError
     {
         public int Line;
         public int Column;
         public int TokenSize;
         public string Message;
         
+
     }
 }
