@@ -10,23 +10,15 @@ namespace DocumentationService.documentation
 {
     class Documentation
     {
-        protected ArrayList namesAvaliable;
-        protected Dictionary<string, FileStream> avaliable;
-        protected String path;
-        protected String key;
-
-        public Documentation(string path)
-        {
-            this.path = path;
+        //protected ArrayList namesAvaliable;
+        //protected Dictionary<string, FileStream> avaliable { get; set; }
+        protected ArrayList avaliable { get; set; }
+        
+        public Documentation()
+        {   
             fillAvaliable();
         }
-        public Documentation(string path, string key)
-        {
-            this.path = path;
-            this.key = key;
-            fillAvaliable();
-        }
-
+        
         protected void fillAvaliable()
         {
 

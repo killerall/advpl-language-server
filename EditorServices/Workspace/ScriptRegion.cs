@@ -90,7 +90,7 @@ namespace Microsoft.LanguageServer.EditorServices
             return new ScriptRegion
             {
                 //File = scriptExtent.File,
-                Text = scriptExtent.Message,
+                //Text = scriptExtent.Message,
                 StartLineNumber = scriptExtent.Line,
                 StartColumnNumber = scriptExtent.Column,
                // StartOffset = scriptExtent.StartOffset,

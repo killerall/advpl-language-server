@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using advpl_language_server.EditorServices;
 namespace advpl_language_server.LanguageServicesProtocol.Session
 {
     class EditorSession
@@ -14,10 +14,13 @@ namespace advpl_language_server.LanguageServicesProtocol.Session
         /// Gets the Workspace instance for this session.
         /// </summary>
         public Workspace Workspace { get; private set; }
+
+
+
         /// <summary>
-        /// Gets the ConsoleService instance for this session.
+        /// Gets the LanguageService instance for this session.
         /// </summary>
-        
+        public LanguageService LanguageService { get; private set; }
 
         /// <summary>
         /// Disposes of any Runspaces that were created for the
@@ -29,6 +32,7 @@ namespace advpl_language_server.LanguageServicesProtocol.Session
         public void StartSession()
         {
             this.Workspace = new Workspace();
+            this.LanguageService = new LanguageService();
         }
     }
 }

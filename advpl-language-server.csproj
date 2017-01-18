@@ -129,6 +129,9 @@
     <Compile Include="DocumentationService\Documentation.cs" />
     <Compile Include="DocumentationService\DocumentationUtils.cs" />
     <Compile Include="DocumentationService\FunctionDocumentation.cs" />
+    <Compile Include="EditorServices\Language\CompletionResult.cs" />
+    <Compile Include="EditorServices\Language\CompletionResults.cs" />
+    <Compile Include="EditorServices\Language\LanguageService.cs" />
     <Compile Include="EditorServices\Workspace\BufferPosition.cs" />
     <Compile Include="EditorServices\Workspace\BufferRange.cs" />
     <Compile Include="EditorServices\Workspace\FileChange.cs" />

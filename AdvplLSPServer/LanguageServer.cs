@@ -4,6 +4,7 @@
 //
 
 //using Microsoft.LanguageServer.EditorServices.Extensions;
+using advpl_language_server.EditorServices;
 using advpl_language_server.LanguageServicesProtocol.Session;
 using Microsoft.LanguageServer.EditorServices;
 using Microsoft.LanguageServer.EditorServices.Protocol.LanguageServer;
@@ -570,14 +571,14 @@ function __Expand-Alias {
                 editorSession.Workspace.GetFile(
                     textDocumentPosition.Uri);
             
-          /*  CompletionResults completionResults =
+            CompletionResults completionResults =
                 await editorSession.LanguageService.GetCompletionsInFile(
                     scriptFile,
                     cursorLine,
-                    cursorColumn);*/
+                    cursorColumn);
 
             CompletionItem[] completionItems = null;
-            /*
+            
             if (completionResults != null)
             {
                 int sortIndex = 1;
@@ -595,7 +596,7 @@ function __Expand-Alias {
             {
                 completionItems = new CompletionItem[0];
             }
-            */
+            
             await requestContext.SendResult(completionItems);
         }
 
@@ -603,10 +604,10 @@ function __Expand-Alias {
             CompletionItem completionItem,
             RequestContext<CompletionItem> requestContext)
         {
-            /*if (completionItem.Kind == CompletionItemKind.Function)
+            if (completionItem.Kind == CompletionItemKind.Function)
             {
                 // Get the documentation for the function
-                CommandInfo commandInfo =
+                /*CommandInfo commandInfo =
                     await CommandHelpers.GetCommandInfo(
                         completionItem.Label,
                         this.editorSession.PowerShellContext);
@@ -614,11 +615,11 @@ function __Expand-Alias {
                 completionItem.Documentation =
                     await CommandHelpers.GetCommandSynopsis(
                         commandInfo,
-                        this.editorSession.PowerShellContext);
+                        this.editorSession.PowerShellContext);*/
             }
 
             // Send back the updated CompletionItem
-            await requestContext.SendResult(completionItem);*/
+            await requestContext.SendResult(completionItem);
         }
 
         protected async Task HandleSignatureHelpRequest(
@@ -1161,10 +1162,10 @@ function __Expand-Alias {
                 {
                     // Semantic markers aren't available if the AnalysisService
                     // isn't available
-                    //semanticMarkers = new ScriptFileMarker[0];
+                    semanticMarkers = new ScriptFileMarker[0];
                 }
-                var allMarkers = scriptFile.SyntaxMarkers;//.Concat(semanticMarkers);
-                semanticMarkers = allMarkers;
+               // var allMarkers = scriptFile.SyntaxMarkers;//.Concat(semanticMarkers);
+             //   semanticMarkers = allMarkers;
                 await PublishScriptDiagnostics(
                     scriptFile,
                     semanticMarkers,
@@ -1246,7 +1247,7 @@ function __Expand-Alias {
                 }
             };
         }
-        /*
+        
         private static CompletionItemKind MapCompletionKind(CompletionType completionType)
         {
             switch (completionType)
@@ -1268,7 +1269,7 @@ function __Expand-Alias {
                     return CompletionItemKind.Text;
             }
         }
-
+        
         private static CompletionItem CreateCompletionItem(
             CompletionDetails completionDetails,
             BufferRange completionRange,
@@ -1358,7 +1359,7 @@ function __Expand-Alias {
                 }
             };
         }
-        */
+        
         private static DiagnosticSeverity MapDiagnosticSeverity(ScriptFileMarkerLevel markerLevel)
         {
             switch (markerLevel)

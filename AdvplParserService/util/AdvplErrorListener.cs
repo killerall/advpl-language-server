@@ -25,7 +25,7 @@ namespace advpl_parser.util
             
             AdvplError info = new AdvplError();
             info.Line = line;            
-            info.Column = charPositionInLine;
+            info.Column = charPositionInLine<=0 ?1: charPositionInLine; 
             info.TokenSize = offendingSymbol.Text.Length;
             
             if (msg.Contains("missing {':', 'TO', 'NEXT', 'END', 'SELF', 'PROJECT', 'DEFAULT', 'ASSUME', 'DATA', 'WSMETHOD', 'DESCRIPTION', 'AS', 'OF', IDENTIFIER}"))

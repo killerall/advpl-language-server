@@ -1,6 +1,8 @@
-﻿using System;
+﻿using advpl_language_server.EditorServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -38,10 +40,10 @@ namespace DocumentationService.documentation
             return instance;
         }
 
-        public ArrayList getFunctionInDb()
+        public Collection<CompletionResult> getFunctionInDb()
         {
             string sql = "select DOC_NAME,cast(DOC_CONTENT as TEXT) from DOC_FUNC";
-            ArrayList functions = new ArrayList();
+            Collection<CompletionResult> functions = new Collection<CompletionResult>();
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 //            DataTable dt = new DataTable();
@@ -51,10 +53,14 @@ namespace DocumentationService.documentation
                                 row => row.Field<string>(1));*/
              while (reader.Read())
              {
-                FunctionDocumentation func = new FunctionDocumentation();
+
+                CompletionResult func = new CompletionResult(reader.GetString(0).TrimEnd(), reader.GetString(0).TrimEnd(), CompletionResultType.Method, reader.GetString(1));
+                functions.Add(func);
+               // break;
+                /* FunctionDocumentation func = new FunctionDocumentation();
                     func.Name = reader.GetString(0);
                     func.Content= reader.GetString(1);
-                functions.Add(func);
+                functions.Add(func);*/
                 //functions.Add(reader.GetString(0), reader.GetBlob(1,true));
              }
             reader.Close();
