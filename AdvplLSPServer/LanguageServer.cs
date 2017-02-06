@@ -160,7 +160,7 @@ namespace AdvplLSPServer
                         TextDocumentSync = TextDocumentSyncKind.Incremental,
                         DefinitionProvider = false,
                         ReferencesProvider = false,
-                        DocumentHighlightProvider = false,
+                        DocumentHighlightProvider = true,
                         DocumentSymbolProvider = false,
                         WorkspaceSymbolProvider = false,
                         HoverProvider = false,
@@ -169,11 +169,11 @@ namespace AdvplLSPServer
                         {
                             ResolveProvider = true,
                             TriggerCharacters = new string[] {" ", ".", "-", ":", "\\" }
-                        }/*,
+                        },
                         SignatureHelpProvider = new SignatureHelpOptions
                         {
-                            TriggerCharacters = new string[] { " " } // TODO: Other characters here?
-                        }*/
+                            TriggerCharacters = new string[] { "(" } // TODO: Other characters here?
+                        }
                     }
                 });
         }
@@ -635,11 +635,27 @@ function __Expand-Alias {
                     scriptFile,
                     textDocumentPosition.Position.Line + 1,
                     textDocumentPosition.Position.Character + 1);
-
-            SignatureInformation[] signatures = null;
-            int? activeParameter = null;
+            */
+            SignatureInformation[] signatures = new SignatureInformation[1];
+            int? activeParameter = 0;
             int? activeSignature = 0;
-
+            SignatureInformation info = new SignatureInformation();
+            ParameterInformation arg1 = new ParameterInformation();
+            arg1.Label = "aArray";
+            arg1.Documentation = "Array aonde ser adicionado o valor";
+            ParameterInformation arg2 = new ParameterInformation();
+            arg2.Label = "xValue";
+            arg2.Documentation = "Valor a ser adcionado";
+            
+            ParameterInformation[] args = new ParameterInformation[2];
+            args[0] = arg1;
+            args[1] = arg2;
+            info.Documentation = "Adiciona valor no array";
+            info.Label = "Lavel do sig";
+            info.Parameters = args;
+            //ParameterInfo 
+            //signatures[0] = info;
+            /*
             if (parameterSets != null)
             {
                 signatures =
@@ -662,7 +678,7 @@ function __Expand-Alias {
             else
             {
                 signatures = new SignatureInformation[0];
-            }
+            }*/
 
             await requestContext.SendResult(
                 new SignatureHelp
@@ -670,7 +686,7 @@ function __Expand-Alias {
                     Signatures = signatures,
                     ActiveParameter = activeParameter,
                     ActiveSignature = activeSignature
-                });*/
+                });
         }
 
         protected async Task HandleDocumentHighlightRequest(
@@ -1275,9 +1291,9 @@ function __Expand-Alias {
             BufferRange completionRange,
             int sortIndex)
         {
-            string detailString = null;
-            string documentationString = null;
-
+            string detailString = completionDetails.Detail;
+            string documentationString = completionDetails.ToolTipText;
+/*
             if ((completionDetails.CompletionType == CompletionType.Variable) ||
                 (completionDetails.CompletionType == CompletionType.ParameterName))
             {
@@ -1327,12 +1343,14 @@ function __Expand-Alias {
             // > 999 parameters but surely we won't have so many items in the "parameter name"
             // completion list. Technically we don't need the ListItemText at all but it may come
             // in handy during debug.
+            */
             var sortText = (completionDetails.CompletionType == CompletionType.ParameterName)
                 ? $"{sortIndex:D3}{completionDetails.ListItemText}"
                 : null;
-
+              
             return new CompletionItem
             {
+                //Data = completionDetails
                 InsertText = completionDetails.CompletionText,
                 Label = completionDetails.ListItemText,
                 Kind = MapCompletionKind(completionDetails.CompletionType),

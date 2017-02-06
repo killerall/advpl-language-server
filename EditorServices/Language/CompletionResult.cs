@@ -67,6 +67,10 @@ namespace advpl_language_server.EditorServices
     public class CompletionResult
     {
         /// <summary>
+        /// ID in DB
+        /// </summary>
+        public string _id;
+        /// <summary>
         /// Text to be used as the auto completion result
         /// </summary>
         private string _completionText;
@@ -91,6 +95,18 @@ namespace advpl_language_server.EditorServices
         /// </summary>
         private static readonly CompletionResult s_nullInstance = new CompletionResult();
 
+        /// <summary>
+        /// Detail
+        /// </summary>
+        private string _detail;
+
+        public string Detail
+        {
+            get
+            {
+                return _detail;
+            }
+        }
         /// <summary>
         /// Gets the text to be used as the auto completion result
         /// </summary>
@@ -149,6 +165,7 @@ namespace advpl_language_server.EditorServices
                 }
                 return _toolTip;
             }
+            
         }
 
         /// <summary>
@@ -166,7 +183,7 @@ namespace advpl_language_server.EditorServices
         /// <param name="listItemText">he text to be displayed in a list</param>
         /// <param name="resultType">the type of completion result</param>
         /// <param name="toolTip">the text for the tooltip with details to be displayed about the object</param>
-        public CompletionResult(string completionText, string listItemText, CompletionResultType resultType, string toolTip)
+        public CompletionResult(string completionText, string listItemText, CompletionResultType resultType, string toolTip, string detail)
         {
             if (String.IsNullOrEmpty(completionText))
             {
@@ -192,6 +209,7 @@ namespace advpl_language_server.EditorServices
             _listItemText = listItemText;
             _toolTip = toolTip;
             _resultType = resultType;
+            _detail = detail;
         }
 
 
@@ -200,7 +218,7 @@ namespace advpl_language_server.EditorServices
         /// </summary>
         /// <param name="completionText">completion text</param>
         public CompletionResult(string completionText)
-            : this(completionText, completionText, CompletionResultType.Text, completionText)
+            : this(completionText, completionText, CompletionResultType.Text, completionText, null)
         {
         }
 

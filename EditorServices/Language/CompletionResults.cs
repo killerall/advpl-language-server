@@ -204,6 +204,7 @@ namespace advpl_language_server.EditorServices
         /// </summary>
         public CompletionType CompletionType { get; private set; }
 
+        public string Detail { get; set; }
         #endregion
 
         #region Constructors
@@ -224,6 +225,7 @@ namespace advpl_language_server.EditorServices
                 CompletionText = completionResult.CompletionText,
                 ListItemText = completionResult.ListItemText,
                 ToolTipText = toolTipText,
+                Detail = completionResult.Detail,
                 SymbolTypeName = "C",// ExtractSymbolTypeNameFromToolTip(completionResult.ToolTip),
                 CompletionType =
                     ConvertCompletionResultType(
